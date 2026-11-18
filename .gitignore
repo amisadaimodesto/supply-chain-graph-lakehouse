@@ -1,0 +1,11 @@
+
+data/raw/*.parquet
+
+data/processed/*.parquet
+
+__pycache__/
+
+*.pyc
+
+.ipynb_checkpoints/
+

@@ -1,0 +1,13 @@
+services:
+  spark-supply-chain:
+    build: .
+    container_name: spark-supply-chain
+    volumes:
+      - .:/app
+      - ivy-cache:/root/.ivy2
+    environment:
+      - SPARK_LOCAL_IP=127.0.0.1
+    command: tail -f /dev/null
+
+volumes:
+  ivy-cache:
