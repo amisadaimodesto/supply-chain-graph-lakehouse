@@ -25,10 +25,15 @@ O projeto modela uma malha logística multi-tier (`Fornecedor -> Fábrica -> Cen
  ## 🏗️ Arquitetura Medallion & Stack Tecnológica
 
 - **Infraestrutura & Isolamento:** Docker & Docker Compose (Python 3.11 + OpenJDK 17 + Cache Maven persistente).
+
 - **Camada Bronze (`src/01_generate_supply_chain_data.py`):** Geração determinística de 22 nós operacionais, 30 rotas direcionadas e 15.000 embarques históricos em armazenamento colunar **Parquet**.
+
 - **Camada Silver (`src/02_spark_sql_silver_analytics.py`):** Transformações distribuídas via **Spark SQL**, joins relacionais, cálculo de custos unitários e *Window Functions* (`AVG OVER ROWS BETWEEN 30 PRECEDING`) para monitoramento de atraso móvel por rota.
+
 - **Camada Gold — Topologia (`src/03_graphframes_topology.py`):** Modelagem de grafo direcionado com **GraphFrames** aplicando *PageRank*, *In/Out-Degree*, *Shortest Paths*, *Motif Finding* e simulação de falha crítica via *Connected Components*.
+
 - **Camada Gold — Machine Learning (`src/04_mllib_delay_prediction.py`):** Feature engineering unindo atributos operacionais e métricas de centralidade do grafo em pipelines nativos do **Spark MLlib** (`GBTRegressor` + `RandomForestClassifier`).
+
 - **Visualização Interativa (`app.py`):** Aplicação web em **Streamlit**, **Plotly** e **NetworkX** para simulação visual de contingência e auditoria das predições.
 
 
