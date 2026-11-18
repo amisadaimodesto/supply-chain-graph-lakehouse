@@ -2,4 +2,7 @@ pyspark==3.5.3
 graphframes==0.6
 numpy==1.26.4
 pandas==2.2.3
-pyarrow==18.0.0
+pyarrow==17.0.0
+streamlit==1.39.0
+plotly==5.24.1
+networkx==3.3

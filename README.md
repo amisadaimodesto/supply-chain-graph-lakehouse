@@ -77,3 +77,30 @@ docker compose up -d --build
 
 ```
 
+
+
+
+---
+
+
+
+## 📊 Dashboard Interativo (Streamlit + Plotly)
+
+
+
+Após executar o pipeline batch, você pode explorar visualmente o grafo da malha logística, simular quedas de hubs críticos em tempo real e inspecionar as predições do Spark MLlib no navegador:
+
+
+
+```bash
+
+# Iniciar o dashboard interativo na porta 8501
+
+docker exec -d spark-supply-chain streamlit run app.py --server.port=8501 --server.address=0.0.0.0
+
+```
+
+
+
+Acesse **`http://localhost:8501`** no navegador.
+
