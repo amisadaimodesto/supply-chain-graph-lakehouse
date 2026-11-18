@@ -22,35 +22,17 @@ O projeto modela uma malha logística multi-tier (`Fornecedor -> Fábrica -> Cen
 
 
 
-```
+ ## 🏗️ Arquitetura Medallion & Stack Tecnológica
 
-
-
-## 🏗️ Arquitetura Medallion & Stack Tecnológica
-
-
-
-* **Infraestrutura & Isolamento:** Docker & Docker Compose (Python 3.11 + OpenJDK 17 + Cache Maven persistente).
-
-* **Camada Bronze (`src/01_generate_supply_chain_data.py`):** Geração determinística de 22 nós operacionais, 30 rotas direcionadas e 15.000 embarques históricos em armazenamento colunar **Parquet**.
-
-* **Camada Silver (`src/02_spark_sql_silver_analytics.py`):** Transformações distribuídas via **Spark SQL**, joins relacionais, cálculo de custos unitários e *Window Functions* (`AVG OVER ROWS BETWEEN 30 PRECEDING`) para monitoramento de atraso móvel por rota.
-
-* **Camada Gold — Topologia (`src/03_graphframes_topology.py`):** Modelagem de grafo direcionado com **GraphFrames** aplicando *PageRank*, *In/Out-Degree*, *Shortest Paths*, *Motif Finding* e simulação de falha crítica via *Connected Components*.
-
-* **Camada Gold — Machine Learning (`src/04_mllib_delay_prediction.py`):** Feature engineering unindo atributos operacionais e métricas de centralidade do grafo em pipelines nativos do **Spark MLlib** (`GBTRegressor` + `RandomForestClassifier`).
-
-* **Visualização Interativa (`app.py`):** Aplicação web em **Streamlit**, **Plotly** e **NetworkX** para simulação visual de contingência e auditoria das predições.
-
-
-
-```
-
+- **Infraestrutura & Isolamento:** Docker & Docker Compose (Python 3.11 + OpenJDK 17 + Cache Maven persistente).
+- **Camada Bronze (`src/01_generate_supply_chain_data.py`):** Geração determinística de 22 nós operacionais, 30 rotas direcionadas e 15.000 embarques históricos em armazenamento colunar **Parquet**.
+- **Camada Silver (`src/02_spark_sql_silver_analytics.py`):** Transformações distribuídas via **Spark SQL**, joins relacionais, cálculo de custos unitários e *Window Functions* (`AVG OVER ROWS BETWEEN 30 PRECEDING`) para monitoramento de atraso móvel por rota.
+- **Camada Gold — Topologia (`src/03_graphframes_topology.py`):** Modelagem de grafo direcionado com **GraphFrames** aplicando *PageRank*, *In/Out-Degree*, *Shortest Paths*, *Motif Finding* e simulação de falha crítica via *Connected Components*.
+- **Camada Gold — Machine Learning (`src/04_mllib_delay_prediction.py`):** Feature engineering unindo atributos operacionais e métricas de centralidade do grafo em pipelines nativos do **Spark MLlib** (`GBTRegressor` + `RandomForestClassifier`).
+- **Visualização Interativa (`app.py`):** Aplicação web em **Streamlit**, **Plotly** e **NetworkX** para simulação visual de contingência e auditoria das predições.
 
 
 ## 📊 Principais Descobertas & Resultados Obtidos
-
-
 
 1. **Identificação de Gargalo Sistêmico (GraphFrames PageRank):**
 
@@ -67,40 +49,25 @@ O projeto modela uma malha logística multi-tier (`Fornecedor -> Fábrica -> Cen
    * **Classificação de Risco de SLA (`RandomForestClassifier`):** **AUC-ROC de 0.9381**, comprovando o ganho preditivo das features topológicas (`src_pagerank`, `src_out_degree` e `dst_pagerank`) combinadas com severidade climática e sazonalidade.
 
 
-
-```
-
-
-
 ## ⚡ Como Executar
-
-
-
-```
 
 # 1. Subir o ambiente Spark + GraphFrames via Docker Compose
 
 docker compose up -d --build
-
-
 
 # 2. Executar o pipeline completo (Bronze -> Silver -> GraphFrames -> MLlib)
 
 ./run_pipeline.sh
 
 
-
 # 3. Iniciar o dashboard interativo na porta 8501
 
 docker exec -d spark-supply-chain streamlit run app.py --server.port=8501 --server.address=0.0.0.0
 
-```
 
 Acesse **`http://localhost:8501`** no navegador para explorar o simulador de topologia e os resultados dos modelos.
 
-```
+
 ## 📄 Licença
-
-
 
 Este projeto está licenciado sob a **[Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](LICENSE)** — você pode compartilhar e adaptar o código livremente mediante atribuição de crédito, **vedado o uso para fins comerciais**.
