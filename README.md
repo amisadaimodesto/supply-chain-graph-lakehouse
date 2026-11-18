@@ -1,9 +1,28 @@
-
-# 🚚 Supply Chain Graph Lakehouse & Predictive Logistics
-
+## 🚚 Supply Chain Graph Lakehouse & Predictive Logistics
 
 
-Pipeline end-to-end de **Engenharia de Dados, Análise de Grafos e Machine Learning Distribuído** construído com **PySpark, Spark SQL, GraphFrames e Spark MLlib** em ambiente containerizado (**Docker + OpenJDK 17**).
+
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
+![PySpark](https://img.shields.io/badge/PySpark-3.5.3-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)
+
+![Spark SQL](https://img.shields.io/badge/Spark_SQL-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)
+
+![GraphFrames](https://img.shields.io/badge/GraphFrames-0.8.3-2E7D32?style=for-the-badge&logo=apachespark&logoColor=white)
+
+![Spark MLlib](https://img.shields.io/badge/Spark_MLlib-1565C0?style=for-the-badge&logo=apachespark&logoColor=white)
+
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+
+![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
+
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg?style=for-the-badge)](https://creativecommons.org/licenses/by-nc/4.0/)
+
+
+
+Pipeline end-to-end de **Engenharia de Dados, Análise de Grafos e Machine Learning Distribuído** construído com **PySpark, Spark SQL, GraphFrames e Spark MLlib** em ambiente containerizado (**Docker + OpenJDK 17**), acompanhado de dashboard interativo em **Streamlit**.
 
 
 
@@ -11,7 +30,7 @@ O projeto modela uma malha logística multi-tier (`Fornecedor -> Fábrica -> Cen
 
 
 
----
+```
 
 
 
@@ -29,9 +48,11 @@ O projeto modela uma malha logística multi-tier (`Fornecedor -> Fábrica -> Cen
 
 * **Camada Gold — Machine Learning (`src/04_mllib_delay_prediction.py`):** Feature engineering unindo atributos operacionais e métricas de centralidade do grafo em pipelines nativos do **Spark MLlib** (`GBTRegressor` + `RandomForestClassifier`).
 
+* **Visualização Interativa (`app.py`):** Aplicação web em **Streamlit**, **Plotly** e **NetworkX** para simulação visual de contingência e auditoria das predições.
 
 
----
+
+```
 
 
 
@@ -55,7 +76,7 @@ O projeto modela uma malha logística multi-tier (`Fornecedor -> Fábrica -> Cen
 
 
 
----
+```
 
 
 
@@ -63,7 +84,7 @@ O projeto modela uma malha logística multi-tier (`Fornecedor -> Fábrica -> Cen
 
 
 
-```bash
+```
 
 # 1. Subir o ambiente Spark + GraphFrames via Docker Compose
 
@@ -75,32 +96,19 @@ docker compose up -d --build
 
 ./run_pipeline.sh
 
-```
 
 
-
-
----
-
-
-
-## 📊 Dashboard Interativo (Streamlit + Plotly)
-
-
-
-Após executar o pipeline batch, você pode explorar visualmente o grafo da malha logística, simular quedas de hubs críticos em tempo real e inspecionar as predições do Spark MLlib no navegador:
-
-
-
-```bash
-
-# Iniciar o dashboard interativo na porta 8501
+# 3. Iniciar o dashboard interativo na porta 8501
 
 docker exec -d spark-supply-chain streamlit run app.py --server.port=8501 --server.address=0.0.0.0
 
 ```
 
+Acesse **`http://localhost:8501`** no navegador para explorar o simulador de topologia e os resultados dos modelos.
+
+```
+## 📄 Licença
 
 
-Acesse **`http://localhost:8501`** no navegador.
 
+Este projeto está licenciado sob a **[Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](LICENSE)** — você pode compartilhar e adaptar o código livremente mediante atribuição de crédito, **vedado o uso para fins comerciais**.
